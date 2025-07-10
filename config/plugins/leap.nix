@@ -1,7 +1,5 @@
 {...}: {
-  programs.nixvim = {
-    plugins.leap = {
-      enable = true;
-    };
+  plugins.leap = {
+    enable = true;
   };
 }

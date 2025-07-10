@@ -1,8 +1,6 @@
 {...}: {
-  programs.nixvim = {
-    # https://nix-community.github.io/nixvim/plugins/sleuth/index.html
-    plugins.sleuth = {
-      enable = true;
-    };
+  # https://nix-community.github.io/nixvim/plugins/sleuth/index.html
+  plugins.sleuth = {
+    enable = true;
   };
 }

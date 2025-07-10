@@ -1,8 +1,6 @@
 {...}: {
-  programs.nixvim = {
-    # https://nix-community.github.io/nixvim/plugins/todo-comments/index.html
-    plugins.todo-comments = {
-      enable = true;
-    };
+  # https://nix-community.github.io/nixvim/plugins/todo-comments/index.html
+  plugins.todo-comments = {
+    enable = true;
   };
 }
