@@ -70,7 +70,6 @@
     };
   };
 
-  # [[ Basic Autocommands ]]
   #  See `:help lua-guide-autocommands`
   # https://nix-community.github.io/nixvim/NeovimOptions/autoCmd/index.html
   autoCmd = [
