@@ -2,17 +2,14 @@
   description = "Ozo's Neovim configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     flake-parts.url = "github:hercules-ci/flake-parts";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixvim.url = "github:nix-community/nixvim";
   };
 
   outputs = {
-    nixvim,
     flake-parts,
+    nixvim,
     ...
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {
@@ -30,20 +27,21 @@
       }: let
         nixvimLib = nixvim.lib.${system};
         nixvim' = nixvim.legacyPackages.${system};
-        
+
         makeNvimWithPolarity = polarity: let
-          nixvimModule = import ./config { inherit polarity; };
-        in nixvim'.makeNixvimWithModule {
-          inherit pkgs;
-          module = nixvimModule;
-        };
-        
+          nixvimModule = import ./config {inherit polarity;};
+        in
+          nixvim'.makeNixvimWithModule {
+            inherit pkgs;
+            module = nixvimModule;
+          };
+
         nvim = makeNvimWithPolarity "dark";
       in {
         checks = {
           default = nixvimLib.check.mkTestDerivationFromNixvimModule {
             inherit pkgs;
-            module = import ./config { polarity = "dark"; };
+            module = import ./config {polarity = "dark";};
           };
         };
 
