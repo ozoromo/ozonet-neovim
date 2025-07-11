@@ -24,53 +24,53 @@
     # You can put your default mappings / updates / etc. in here
     #  See `:help telescope.builtin`
     keymaps = {
-      "<leader>sh" = {
+      "<leader>fh" = {
         mode = "n";
         action = "help_tags";
         options = {
-          desc = "[S]earch [H]elp";
+          desc = "[F]ind [H]elp";
         };
       };
-      "<leader>sf" = {
+      "<leader>ff" = {
         mode = "n";
         action = "find_files";
         options = {
-          desc = "[S]earch [F]iles";
+          desc = "[F]ind [F]iles";
         };
       };
-      "<leader>st" = {
+      "<leader>ft" = {
         mode = "n";
         action = "builtin";
         options = {
-          desc = "[S]earch select [T]elescope";
+          desc = "[F]ind [T]elescope";
         };
       };
-      "<leader>sc" = {
+      "<leader>fc" = {
         mode = "n";
         action = "colorscheme";
         options = {
-          desc = "[S]earch [C]olorschemes";
+          desc = "[F]ind [C]olorschemes";
         };
       };
-      "<leader>sw" = {
+      "<leader>fw" = {
         mode = "n";
         action = "grep_string";
         options = {
-          desc = "[S]earch current [W]ord";
+          desc = "[F]ind current [W]ord";
         };
       };
-      "<leader>sg" = {
+      "<leader>fg" = {
         mode = "n";
         action = "live_grep";
         options = {
-          desc = "[S]earch by [G]rep";
+          desc = "[F]ind by [G]rep";
         };
       };
-      "<leader>sd" = {
+      "<leader>fd" = {
         mode = "n";
         action = "diagnostics";
         options = {
-          desc = "[S]earch [D]iagnostics";
+          desc = "[F]ind [D]iagnostics";
         };
       };
       "<leader><leader>" = {

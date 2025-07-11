@@ -17,6 +17,10 @@
     ./plugins/lsp.nix
     ./plugins/indent-blankline.nix
     ./plugins/todo-comments.nix
+    ./plugins/gitsigns.nix
+
+    ./plugins/render-markdown.nix
+    ./plugins/noice.nix
 
     ./plugins/telescope.nix
     ./plugins/neotree.nix
@@ -25,12 +29,10 @@
     ./plugins/sleuth.nix
   ];
 
-  #enable = true;
-  #defaultEditor = true;
-
   viAlias = true;
   vimAlias = true;
 
+  plugins.web-devicons.enable = true;
   colorschemes.catppuccin = {
     enable = true;
     settings = {
@@ -40,7 +42,6 @@
         else "frappe";
     };
   };
-  plugins.web-devicons.enable = true;
 
   globals = {
     mapleader = " ";
@@ -61,30 +62,6 @@
     {
       key = "<leader>x";
       action = "<cmd>x<cr>";
-    }
-  ];
-
-  autoGroups = {
-    kickstart-highlight-yank = {
-      clear = true;
-    };
-  };
-
-  #  See `:help lua-guide-autocommands`
-  # https://nix-community.github.io/nixvim/NeovimOptions/autoCmd/index.html
-  autoCmd = [
-    # Highlight when yanking (copying) text
-    #  Try it with `yap` in normal mode
-    #  See `:help vim.highlight.on_yank()`
-    {
-      event = ["TextYankPost"];
-      desc = "Highlight when yanking (copying) text";
-      group = "kickstart-highlight-yank";
-      callback.__raw = ''
-        function()
-          vim.highlight.on_yank()
-        end
-      '';
     }
   ];
 }

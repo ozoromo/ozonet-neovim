@@ -86,16 +86,13 @@
 
       lspBuf = {
         # Rename the variable under your cursor.
-        #  Most Language Servers support renaming across files, etc.
         "<leader>r" = {
-          #mode = "n";
           action = "rename";
-          desc = "LSP: [R]e[n]ame";
+          desc = "LSP: [R]ename";
         };
         # Execute a code action, usually your cursor needs to be on top of an error
         # or a suggestion from your LSP for this to activate.
         "<leader>c" = {
-          #mode = "n";
           action = "code_action";
           desc = "LSP: [C]ode [A]ction";
         };
@@ -105,8 +102,6 @@
           action = "hover";
           desc = "LSP: Hover Documentation";
         };
-        # WARN: This is not Goto Definition, this is Goto Declaration.
-        #  For example, in C this would take you to the header.
         "<leader>gd" = {
           action = "declaration";
           desc = "LSP: [G]oto [D]eclaration";
