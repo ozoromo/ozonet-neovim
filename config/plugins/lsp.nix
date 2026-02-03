@@ -31,7 +31,6 @@
       java_language_server.enable = true;
       texlab.enable = true;
       tinymist.enable = true;
-      ansiblels.enable = true;
 
       html.enable = true;
       svelte.enable = true;
