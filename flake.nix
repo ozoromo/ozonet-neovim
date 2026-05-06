@@ -21,10 +21,14 @@
       ];
 
       perSystem = {
-        pkgs,
         system,
         ...
       }: let
+        pkgs = import inputs.nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+
         nixvimLib = nixvim.lib.${system};
         nixvim_lps = nixvim.legacyPackages.${system};
 
