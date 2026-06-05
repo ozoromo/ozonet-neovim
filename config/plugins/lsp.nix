@@ -8,8 +8,22 @@
     enable = true;
   };
 
+  # Render diagnostics (from LSP servers and any linters) inline as virtual
+  # text at the end of the line, in addition to the sign column and underline.
+  # Maps to `vim.diagnostic.config`.
+  diagnostic.settings = {
+    virtual_text = true;
+    underline = true;
+    severity_sort = true;
+    update_in_insert = false;
+  };
+
   plugins.lsp = {
     enable = true;
+
+    # Show LSP inlay hints (inline parameter names / inferred types) on attach.
+    # Toggle them at runtime with <leader>lI (see keymaps below).
+    inlayHints = true;
 
     # For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
     servers = {
@@ -21,14 +35,30 @@
         installCargo = true;
         installRustc = true;
       };
-      gopls.enable = true;
+      gopls = {
+        enable = true;
+        # gopls emits no inlay hints unless asked; turn the useful ones on.
+        settings.gopls.hints = {
+          assignVariableTypes = true;
+          compositeLiteralFields = true;
+          compositeLiteralTypes = true;
+          constantValues = true;
+          functionTypeParameters = true;
+          parameterNames = true;
+          rangeVariableTypes = true;
+        };
+      };
       nil_ls = {
         enable = true;
         settings = {
           autoArchive = true;
         };
       };
-      java_language_server.enable = true;
+      # `jdtls` (Eclipse JDT) is the canonical Java language server. The old
+      # `java_language_server` (georgewfraser) is minimal and effectively
+      # unmaintained. For a full Java IDE experience consider the dedicated
+      # `plugins.jdtls` (nvim-jdtls) wrapper instead of the plain lspconfig server.
+      jdtls.enable = true;
       texlab.enable = true;
       tinymist.enable = true;
 
@@ -52,6 +82,9 @@
         settings = {
           completion = {
             callSnippet = "Replace";
+          };
+          hint = {
+            enable = true;
           };
           #diagnostics = {
           #  disable = {
@@ -97,6 +130,16 @@
             end
           '';
           options.desc = "Next [D]iagnostic message";
+        }
+        {
+          key = "<leader>lI";
+          mode = "n";
+          action.__raw = ''
+            function()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+            end
+          '';
+          options.desc = "LSP: Toggle [I]nlay hints";
         }
       ];
 

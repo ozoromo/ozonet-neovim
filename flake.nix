@@ -20,10 +20,7 @@
         "x86_64-linux"
       ];
 
-      perSystem = {
-        system,
-        ...
-      }: let
+      perSystem = {system, ...}: let
         pkgs = import inputs.nixpkgs {
           inherit system;
           config.allowUnfree = true;
