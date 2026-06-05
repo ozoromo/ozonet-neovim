@@ -73,6 +73,34 @@
           desc = "[F]ind [D]iagnostics";
         };
       };
+      "<leader>fr" = {
+        mode = "n";
+        action = "resume";
+        options = {
+          desc = "[F]ind [R]esume (last picker)";
+        };
+      };
+      "<leader>fo" = {
+        mode = "n";
+        action = "oldfiles";
+        options = {
+          desc = "[F]ind [O]ld files (recent)";
+        };
+      };
+      "<leader>fk" = {
+        mode = "n";
+        action = "keymaps";
+        options = {
+          desc = "[F]ind [K]eymaps";
+        };
+      };
+      "<leader>fb" = {
+        mode = "n";
+        action = "buffers";
+        options = {
+          desc = "[F]ind [B]uffers";
+        };
+      };
       "<leader><leader>" = {
         mode = "n";
         action = "buffers";

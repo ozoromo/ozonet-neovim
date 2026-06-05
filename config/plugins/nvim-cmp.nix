@@ -46,10 +46,18 @@
       #
       # No, but seriously, Please read `:help ins-completion`, it is really good!
       mapping = {
-        "<C-f>" = "cmp.mapping.scroll_docs(-4)";
-        "<C-b>" = "cmp.mapping.scroll_docs(4)";
+        # Scroll the documentation popup (forward scrolls down, back scrolls up).
+        "<C-f>" = "cmp.mapping.scroll_docs(4)";
+        "<C-b>" = "cmp.mapping.scroll_docs(-4)";
 
+        # Manually trigger / abort completion.
+        "<C-Space>" = "cmp.mapping.complete()";
+        "<C-e>" = "cmp.mapping.abort()";
+
+        # Accept the selected completion item.
         "<CR>" = "cmp.mapping.confirm { select = true }";
+
+        # Navigate the completion menu.
         "<Tab>" = "cmp.mapping.select_next_item()";
         "<S-Tab>" = "cmp.mapping.select_prev_item()";
       };

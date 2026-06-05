@@ -10,9 +10,12 @@
     {
       key = "\\";
       action = "<cmd>Neotree toggle<cr>";
-      options = {
-        desc = "NeoTree reveal";
-      };
+      options.desc = "Toggle Neo-tree (explorer)";
+    }
+    {
+      key = "<leader>e";
+      action = "<cmd>Neotree toggle<cr>";
+      options.desc = "[E]xplorer (Neo-tree)";
     }
   ];
 }

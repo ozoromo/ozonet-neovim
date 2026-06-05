@@ -34,7 +34,11 @@
 
       html.enable = true;
       svelte.enable = true;
-      ts_ls.enable = true;
+      # NOTE: `ts_ls` (tsserver) is intentionally disabled. `typescript-tools`
+      # (enabled above) already provides TypeScript/JavaScript support, and
+      # running both attaches two LSP clients to every TS/JS buffer, producing
+      # duplicate diagnostics, completions and hover results.
+      # ts_ls.enable = true;
       tailwindcss.enable = true;
       volar.enable = true;
 
@@ -58,52 +62,93 @@
     };
 
     keymaps = {
-      # Diagnostic keymaps
+      # Diagnostic keymaps that take no arguments live here (mapped to
+      # `vim.diagnostic.<action>`). Cursor navigation lives in `extra` below so
+      # it can use the modern `vim.diagnostic.jump` API.
       diagnostic = {
-        "[d" = {
-          #mode = "n";
-          action = "goto_prev";
-          desc = "Go to previous [D]iagnostic message";
-        };
-        "]d" = {
-          #mode = "n";
-          action = "goto_next";
-          desc = "Go to next [D]iagnostic message";
+        "<leader>le" = {
+          action = "open_float";
+          desc = "Show diagnostic [E]rror (float)";
         };
         "<leader>lq" = {
-          #mode = "n";
           action = "setloclist";
-          desc = "Open diagnostic [Q]uickfix list";
+          desc = "Diagnostics to loclist [Q]";
         };
       };
 
       extra = [
-        # Jump to the definition of the word under your cusor.
-        #  This is where a variable was first declared, or where a function is defined, etc.
-        #  To jump back, press <C-t>.
+        # `vim.diagnostic.goto_prev/goto_next` are deprecated; use `jump`.
+        {
+          key = "[d";
+          mode = "n";
+          action.__raw = ''
+            function()
+              vim.diagnostic.jump { count = -1, float = true }
+            end
+          '';
+          options.desc = "Previous [D]iagnostic message";
+        }
+        {
+          key = "]d";
+          mode = "n";
+          action.__raw = ''
+            function()
+              vim.diagnostic.jump { count = 1, float = true }
+            end
+          '';
+          options.desc = "Next [D]iagnostic message";
+        }
       ];
 
       lspBuf = {
-        # Rename the variable under your cursor.
-        "<leader>r" = {
-          action = "rename";
-          desc = "LSP: [R]ename";
+        # Navigation (universal Vim conventions, kept off the leader key).
+        "gd" = {
+          action = "definition";
+          desc = "LSP: [G]oto [D]efinition";
         };
-        # Execute a code action, usually your cursor needs to be on top of an error
-        # or a suggestion from your LSP for this to activate.
-        "<leader>c" = {
-          action = "code_action";
-          desc = "LSP: [C]ode [A]ction";
+        "gD" = {
+          action = "declaration";
+          desc = "LSP: [G]oto [D]eclaration";
         };
-        # Opens a popup that displays documentation about the word under your cursor
+        # Opens a popup that displays documentation about the word under your cursor.
         #  See `:help K` for why this keymap.
         "K" = {
           action = "hover";
           desc = "LSP: Hover Documentation";
         };
-        "<leader>gd" = {
-          action = "declaration";
-          desc = "LSP: [G]oto [D]eclaration";
+
+        # Actions and look-ups grouped under <leader>l (the LSP which-key group).
+        "<leader>lr" = {
+          action = "references";
+          desc = "LSP: [R]eferences";
+        };
+        # Rename the symbol under your cursor across the project.
+        "<leader>ln" = {
+          action = "rename";
+          desc = "LSP: Re[n]ame";
+        };
+        # Execute a code action; your cursor usually needs to be on an error or
+        # a suggestion from your LSP for this to activate.
+        "<leader>la" = {
+          action = "code_action";
+          mode = ["n" "x"];
+          desc = "LSP: Code [A]ction";
+        };
+        "<leader>li" = {
+          action = "implementation";
+          desc = "LSP: [I]mplementation";
+        };
+        "<leader>lt" = {
+          action = "type_definition";
+          desc = "LSP: [T]ype Definition";
+        };
+        "<leader>ls" = {
+          action = "document_symbol";
+          desc = "LSP: Document [S]ymbols";
+        };
+        "<leader>lh" = {
+          action = "signature_help";
+          desc = "LSP: Signature [H]elp";
         };
       };
     };

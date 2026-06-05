@@ -42,7 +42,7 @@
     # .__raw here means that this field is raw lua code
     listchars.__raw = "{ tab = '» ', trail = '·', nbsp = '␣' }";
 
-    # Preview subsitutions live, as you type!
+    # Preview substitutions live, as you type!
     inccommand = "split";
 
     # Show which line your cursor is on

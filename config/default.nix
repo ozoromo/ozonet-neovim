@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./options.nix
+    ./keymaps.nix
 
     ./plugins/barbar.nix
     ./plugins/lualine.nix
@@ -49,19 +50,4 @@
 
     have_nerd_font = true;
   };
-
-  keymaps = [
-    {
-      key = "<leader>w";
-      action = "<cmd>w<cr>";
-    }
-    {
-      key = "<leader>q";
-      action = "<cmd>q<cr>";
-    }
-    {
-      key = "<leader>x";
-      action = "<cmd>x<cr>";
-    }
-  ];
 }
