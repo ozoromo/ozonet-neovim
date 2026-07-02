@@ -1,6 +1,36 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  # Filetypes whose ecosystem has one canonical indent width get it hard-set
+  # here instead of relying on sleuth's detection (which only runs on buffer
+  # load and can guess wrong on new/empty files). Add a line per language.
+  indentByFiletype = {
+    nix = 2;
+  };
+in {
   extraPackages = with pkgs; [typescript];
   plugins.typescript-tools.enable = true;
+
+  # Sleuth's per-filetype heuristics would run after these autocmds and
+  # override them, so turn them off for the hard-set filetypes.
+  globals = lib.mapAttrs' (ft: _: lib.nameValuePair "sleuth_${ft}_heuristics" 0) indentByFiletype;
+
+  autoCmd =
+    lib.mapAttrsToList (ft: width: {
+      event = "FileType";
+      pattern = ft;
+      desc = "Force ${toString width}-space indent for ${ft}";
+      callback.__raw = ''
+        function()
+          vim.bo.shiftwidth = ${toString width}
+          vim.bo.tabstop = ${toString width}
+          vim.bo.softtabstop = ${toString width}
+        end
+      '';
+    })
+    indentByFiletype;
 
   # LSP updates in bottom right
   # https://nix-community.github.io/nixvim/plugins/fidget/index.html
