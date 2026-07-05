@@ -100,7 +100,8 @@ in {
       # duplicate diagnostics, completions and hover results.
       # ts_ls.enable = true;
       tailwindcss.enable = true;
-      volar.enable = true;
+      # TODO re-check for vulnerable dependency
+      volar.enable = false;
 
       lua_ls = {
         enable = true;
